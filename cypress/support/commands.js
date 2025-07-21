@@ -10,7 +10,14 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+Cypress.Commands.add('login', (email, password) => {
+  cy.visit('https://hillacademy.staging.foliocollaborative.org/sign_in');
+  cy.get('input[name="user[email]"]').type(email);
+  cy.get('input[name="user[password]"]').type(password);
+  cy.get('input[type="submit"]').click();
+  cy.url().should('not.include', '/sign_in');
+  cy.contains('Welcome back, Dale!').should('be.visible');
+})
 //
 //
 // -- This is a child command --
