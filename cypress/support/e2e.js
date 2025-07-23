@@ -14,4 +14,6 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+// you can use the "import" keyword
+import "cypress-failed-log"
 import './commands'
