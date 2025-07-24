@@ -22,6 +22,6 @@ describe('Community Post Creation Test', () => {
     cy.wait(3000);
 
     // Assert the new post appears in the Community Feed (wait up to 10s)
-    cy.contains('.post-body', 'This is an automated Cypress community post.', { timeout: 10000 }).should('be.visible');
+    cy.get('.post-body p', { timeout: 10000 }).should('contain', 'This is an automated Cypress community post.');
   });
 });
