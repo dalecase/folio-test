@@ -12,13 +12,16 @@ describe('Community Post Creation Test', () => {
     // Wait for the TinyMCE iframe to appear and type the post
     cy.get('iframe.tox-edit-area__iframe').then($iframe => {
       const $body = $iframe.contents().find('body');
-      cy.wrap($body).find('p').first().type('This is an automated Cypress community post.');
+      cy.wrap($body).find('p').first().type('This is an automated Cypress community post.', { force: true });
     });
 
-    // Click the Post button (update selector if needed)
-    cy.contains('button', 'Post').click();
+    // Click the first visible Post button
+    cy.get('.comment-button.btn.btn-primary.float-right').first().click();
 
-    // Assert the new post appears in the Community Feed
-    cy.get('.CommunityFeed, .community-feed, .media-list-item, .feed').should('contain', 'This is an automated Cypress community post.');
+    // Wait for the post to appear in the feed
+    cy.wait(3000);
+
+    // Assert the new post appears in the Community Feed (wait up to 10s)
+    cy.contains('.post-body', 'This is an automated Cypress community post.', { timeout: 10000 }).should('be.visible');
   });
 });
