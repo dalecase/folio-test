@@ -17,3 +17,14 @@
 // you can use the "import" keyword
 import "cypress-failed-log"
 import './commands'
+
+Cypress.on('fail', (error, runnable) => {
+  // Optional: dump the DOM when a test fails
+  cy.document().then(doc => {
+    const html = doc.documentElement.outerHTML;
+    cy.writeFile('cypress/logs/dom-on-fail.html', html);
+  });
+
+  console.error('Test failed:', error.message);
+  throw error;
+});

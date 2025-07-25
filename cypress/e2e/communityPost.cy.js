@@ -10,9 +10,16 @@ describe('Community Post Creation Test', () => {
     cy.contains(/what do you want to share today\?/i).click();
 
     // Wait for the TinyMCE iframe to appear and type the post
-    cy.get('iframe.tox-edit-area__iframe').then($iframe => {
+    cy.get('.add-post-form iframe.tox-edit-area__iframe').should('be.visible').then($iframe => {
+      // Output the iframe element for inspection
+
       const $body = $iframe.contents().find('body');
-      cy.wrap($body).find('p').first().type('This is an automated Cypress community post.', { force: true });
+      cy.log('body element:', $body.prop('outerHTML'));
+      // Print the contents of the $body selector to the terminal
+      cy.task('print', $body.prop('outerHTML'));
+
+      // Type directly into the body of the TinyMCE iframe
+      cy.wrap($body).type('This is an automated Cypress community post.');
     });
 
     // Click the first visible Post button

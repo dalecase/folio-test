@@ -9,7 +9,14 @@ module.exports = defineConfig({
           // You can log, notify, or perform any action here
           return null;
         },
+        print(message) {
+          console.log("TERMINAL OUTPUT!!")
+          console.log(message);
+          return null;
+        },
+
       });
+
       return config;
     },
   },
