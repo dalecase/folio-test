@@ -10,14 +10,20 @@ module.exports = defineConfig({
           return null;
         },
         print(message) {
-          console.log("TERMINAL OUTPUT!!")
+          console.log("TERMINAL OUTPUT!!");
           console.log(message);
           return null;
         },
-
       });
 
       return config;
+    },
+  },
+
+  component: {
+    devServer: {
+      framework: "react",
+      bundler: "webpack",
     },
   },
 });

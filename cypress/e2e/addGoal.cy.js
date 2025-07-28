@@ -16,6 +16,22 @@ describe('Add a Goal', () => {
 
     // Optionally, check for presence of form elements on the new goal page
     cy.get('form').should('exist');
+
+    // Try common selectors for the title field
+    cy.get('input[placeholder*="Title"], input[name*="title"], textarea[placeholder*="Title"], textarea[name*="title"]')
+      .should('exist')
+      .type('Cypress Test Goal');
+
+    // Fill the TinyMCE rich text editor for the goal body
+    cy.get('body#tinymce.mce-content-body').then($body => {
+      cy.wrap($body).should('exist').type('My Goal Test');
+    });
+
+    // Fill the goal action item question field
+    cy.get('#goal_action_item_question')
+      .should('exist')
+      .type('Test Goal Progress');
+
     cy.get('form button').should('exist'); // Check for any button in the form
   });
 });
